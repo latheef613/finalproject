@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Movie Website{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet"  href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'movieapp:index' %}">Movie Website</a></h1>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'movieapp:profile' %}">Profile</a></li>
+                    <li><a href="{% url 'movieapp:logout' %}">Logout</a></li>
+                    <li><a href="{% url 'movieapp:add_movie' %}">Add Movie</a></li>
+                {% else %}
+                    <li><a href="{% url 'movieapp:login' %}">Login</a></li>
+                    <li><a href="{% url 'movieapp:register' %}">Register</a></li>
+                {% endif %}
+                <li><a href="{% url 'movieapp:index' %}">Home</a></li>
+            </ul>
+        </nav>
+        <form action="{% url 'movieapp:search' %}" method="get">
+            <input type="text" name="q" placeholder="Search movies...">
+            <button type="submit">Search</button>
+        </form>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Movie Website</p>
+    </footer>
+</body>
+</html>

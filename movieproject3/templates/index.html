@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>All Movies</h2>
+<ul>
+   {% for movie in movies %}
+        <li>
+            <a href="{% url 'movie_detail' movie.pk %}">
+                <img src="{{ movie.poster.url }}" alt="{{ movie.title}}" width="100">
+                <h3>{{ movie.title }}</h3>
+            </a>
+            <p>{{ movie.description|truncatewords:20 }}</p>
+            <p>Category: {{ movie.category.name }}</p>
+            <p>Release Date: {{ movie.release_date }}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
